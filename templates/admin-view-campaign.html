@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Campaign</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: #333;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Card Info Styles */
+        .card-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-info p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .card-info strong {
+            color: #555;
+        }
+
+        /* Ad Info Styles */
+        .ad-info {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        .ad-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .ad-info strong {
+            color: #444;
+        }
+
+        /* Buttons for Admin Campaigns */
+        button {
+            background-color: #28a745;
+            /* Green for active campaigns */
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /* Back Button */
+        a button {
+            background-color: #6c757d;
+            /* Grey for back button */
+        }
+
+        a button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Campaign Details</h1>
+        <div class="card-info">
+            <h3>{{ campaign.campaign_name }}</h3>
+            <p><strong>Description: </strong>{{ campaign.description }}</p>
+            <p><strong>Start Date: </strong>{{ campaign.start_date }}</p>
+            <p><strong>End Date: </strong>{{ campaign.end_date }}</p>
+            <p><strong>Budget: </strong>{{ campaign.budget }}</p>
+            <p><strong>Visibility: </strong>{{ campaign.visibility }}</p>
+            <p><strong>Goals: </strong>{{ campaign.goals }}</p>
+            <p><strong>Remarks: </strong>{{ campaign.remarks }}</p>
+            <h2>Ad Requests</h2>
+            {% for ad in ads %}
+            <div class="ad-info">
+                <h4>{{ ad.ad_name }}</h4>
+                <p><strong>Requirements: </strong>{{ ad.requirements }}</p>
+                <p><strong>Payment Amount: </strong>{{ ad.payment_amount }}</p>
+                <p><strong>Status: </strong>{{ ad.status }}</p>
+            </div>
+            {% endfor %}
+            <a href="{{ url_for('admin_campaigns') }}"><button>Back</button></a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Influencer Profile</title>
+    <style>
+        /* Common Styles for Profile Edit Forms */
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Edit Influencer Profile</h2>
+        <form action="{{ url_for('edit_inf_profile') }}" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ inf.name }}" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ inf.email }}" required>
+
+            <label for="platforms">Platforms:</label>
+            <input type="text" id="platforms" name="platforms" value="{{ inf.platforms }}" required>
+
+            <label for="reach">Reach:</label>
+            <input type="text" id="reach" name="reach" value="{{ inf.reach }}" required>
+
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" value="{{ inf.category }}" required>
+
+            <label for="bio">Bio:</label>
+            <textarea id="bio" name="bio" required>{{ inf.bio }}</textarea>
+
+            <button type="submit">Update Profile</button>
+        </form>
+        <a href="{{ url_for('inf_prof') }}">Back to Profile</a>
+    </div>
+</body>
+
+</html>

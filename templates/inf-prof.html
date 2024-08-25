@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            margin-top: 0%;
+            width: 90%;
+            max-width: 2000px;
+            height: 90%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+
+        .nav {
+            display: flex;
+            background-color: #007BFF;
+            position: sticky;
+            top: 0;
+        }
+
+        .nav a {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #0056b3;
+        }
+
+        .nav .active {
+            background-color: #0056b3;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .page-title {
+            width: 20%;
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            font-size: large;
+        }
+
+        h1 {
+            margin-top: 3%;
+            margin-left: 5%;
+        }
+
+        .stats-card {
+            background-color: #f9f9f9;
+            width: 60%;
+            padding: 20px;
+            margin-left: 5%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-card h2 {
+            margin-top: 0;
+        }
+
+        .stats-card p {
+            margin: 0 0 10px;
+        }
+
+        /* Button Style */
+        .button {
+            margin-top: 5%;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav">
+            <p class="page-title">INFLUENCER DASHBOARD</p>
+            <a href='/inf-prof' class="active">Profile</a>
+            <a href="/inf-requests">Ad Requests</a>
+            <a href="/inf-search">Search Campaigns</a>
+            <a href="/inf-stats">Stats</a>
+            <a href="/">Logout</a>
+        </div>
+        <h1>Influencer Profile</h1>
+        <div class="stats-card">
+            <h2>Basic Information</h2>
+            <p><strong>Name:</strong> {{inf.name}}</p>
+            <p><strong>Email:</strong> {{inf.email}}</p>
+            <p><strong>Platforms:</strong> {{inf.platforms}}</p>
+            <p><strong>Reach:</strong> {{inf.reach}}</p>
+            <p><strong>Category:</strong> {{inf.category}}</p>
+            <p><strong>Bio:</strong> {{inf.bio}}</p>
+            <a href="{{ url_for('edit_inf_profile') }}" class="button">Edit Profile</a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            margin-top: 0%;
+            width: 90%;
+            max-width: 2000px;
+            height: 90%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+
+        .nav {
+            display: flex;
+            background-color: #007BFF;
+            position: sticky;
+            top: 0;
+        }
+
+        .nav a {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #0056b3;
+        }
+
+        .nav .active {
+            background-color: #0056b3;
+        }
+
+        .content {
+            padding: 20px;
+            width: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-title {
+            width: 20%;
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            font-size: large;
+        }
+
+        .nav-title {
+            flex: 2;
+            padding: 15px;
+            color: #fff;
+            font-size: 1.2em;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            flex: 8;
+        }
+
+        .nav-links a {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #0056b3;
+        }
+
+        .nav-links .active {
+            background-color: #0056b3;
+        }
+
+        .content {
+            padding: 20px;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .search-bar-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        form{
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar-container input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .search-bar-container button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar-container button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin: 0 auto;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            width: 28%;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .action-buttons button {
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .view-btn {
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .view-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .flag-btn {
+            background-color: #e43318;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .flag-btn:hover {
+            background-color: #bb1c03;
+        }
+
+
+        .button-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .button-group form {
+            margin: 0;
+        }
+
+        .button-group button {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav">
+            <p class="page-title">ADMIN DASHBOARD</p>
+            <a href="/admin-campaigns">Campaigns</a>
+            <a href="/admin-users" class="active">Users</a>
+            <a href="/admin-stats">Stats</a>
+            <a href="/">Logout</a>
+        </div>
+        <div class="content">
+            <h2>Search Users</h2>
+            <div class="search-bar-container">
+                <form action="{{ url_for('admin_users') }}" method="post">
+                    <input type="text" name="search_query" placeholder="Search users..." required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>User Type</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{user.username}}</td>
+                        <td>{{user.role}}</td>
+                        <td>{{user.remarks}}</td>
+                        <td class="button-group">
+                            <form action="{{ url_for('view_user', user_id=user.user_id) }}" method="get">
+                                <button type="submit" class="view-btn">View</button>
+                            </form>
+                            <form action="{{ url_for('flag_user', user_id=user.user_id) }}" method="post">
+                                <button type="submit" class="flag-btn">Flag</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h2>Flagged Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>User Type</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for flagged_user in flagged_users %}
+                    <tr>
+                        <td>{{flagged_user.username}}</td>
+                        <td>{{flagged_user.role}}</td>
+                        <td>{{flagged_user.remarks}}</td>
+                        <td class="button-group">
+                            <form action="{{ url_for('view_user', user_id=flagged_user.user_id) }}" method="get">
+                                <button type="submit" class="view-btn">View</button>
+                            </form>
+                            <form action="{{ url_for('flag_user', user_id=flagged_user.user_id) }}" method="post">
+                                <button type="submit" class="flag-btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsor Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            margin-top: 0%;
+            width: 90%;
+            max-width: 2000px;
+            height: 90%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+
+        .nav {
+            display: flex;
+            background-color: #007BFF;
+            position: sticky;
+            top: 0;
+        }
+        .nav a {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+        .nav a:hover {
+            background-color: #0056b3;
+        }
+        .nav .active {
+            background-color: #0056b3;
+        }
+        .content {
+            padding: 20px;
+            width: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page-title{
+            width: 20%;
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            font-size: large;
+        }
+        .nav-title {
+            flex: 2;
+            padding: 15px;
+            color: #fff;
+            font-size: 1.2em;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .nav-links {
+            display: flex;
+            flex: 8;
+        }
+        .nav-links a {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+        .nav-links a:hover {
+            background-color: #0056b3;
+        }
+        .nav-links .active {
+            background-color: #0056b3;
+        }
+        .content {
+            padding: 20px;
+            width: 100%;
+            overflow-y: auto;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin: 0 auto;
+        }
+        th, td {
+            padding: 10px;
+            width: 21%;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .action-buttons button {
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .view-btn {
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 4px;
+        }
+        .view-btn:hover {
+            background-color: #0056b3;
+        }
+        .request-btn {
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 4px;
+        }
+        .request-btn:hover {
+            background-color: #218838;
+        }
+        a{
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <p class="page-title">SPONSOR DASHBOARD</p>
+            <a href='/spo-prof'>Profile</a>
+            <a href="/spo-campaigns">Campaigns</a>
+            <a href="/spo-requests">Requests</a>
+            <a href="/spo-search" class="active">Search Influencers</a>
+            <a href="/">Logout</a>
+        </div>
+        <div class="content">
+            <h2>Search Campaigns</h2>
+            <form method="POST" action="{{ url_for('spo_search') }}">
+                <input type="text" name="influencer_name" placeholder="Search by influencer name">
+                <input type="submit" value="Search">
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Platforms</th>
+                        <th>Reach</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inf in infs %}
+                    <tr>
+                        <td>{{inf.name}}</td>
+                        <td>{{inf.category}}</td>
+                        <td>{{inf.platforms}}</td>
+                        <td>{{inf.reach}}</td>
+                        <td class="action-buttons">
+                            <a href="{{ url_for('influencer_view', influencer_id=inf.influencer_id) }}">
+                                <button class="view-btn">View</button>
+                            </a>
+                            <a href="{{ url_for('influencer_view', influencer_id=inf.influencer_id) }}">
+                                <button class="request-btn">Send Request</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

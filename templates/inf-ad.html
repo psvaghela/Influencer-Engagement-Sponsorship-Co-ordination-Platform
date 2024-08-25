@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Details</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            margin-top: 0;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Styles for the payment request form */
+        form {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="number"] {
+            width: 80%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        form a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        form a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{ ad.ad_name }}</h1>
+        <p><strong>Campaign: </strong>{{ ad.campaign.campaign_name }}</p>
+        <p><strong>Payment Amount: </strong>{{ ad.payment_amount }}</p>
+        <p><strong>Requirements: </strong>{{ ad.requirements }}</p>
+        <p><strong>Status: </strong>{{ ad.status }}</p>
+        {% if ad.payment_requested %}
+        <p><strong>Requested Payment Amount: </strong>{{ ad.payment_requested }}</p>
+        {% endif %}
+        {% if ad.status=='Pending' %}
+        <form method="POST" action="{{ url_for('request_payment', ad_id=ad.ad_id) }}">
+            <label for="requested_amount">Request New Payment Amount:</label>
+            <input type="number" id="requested_amount" name="requested_amount" min="0" required>
+            <button type="submit">Submit Request</button>
+        </form>
+        {% endif %}
+        <a href="{{ url_for('inf_requests') }}" class="back-btn">Back to Requests</a>
+    </div>
+</body>
+
+</html>

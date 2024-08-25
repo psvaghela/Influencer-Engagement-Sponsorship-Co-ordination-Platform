@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsor Registration</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+
+<body>
+    <h2>Sponsor Registration</h2>
+    <form method="POST" action="{{ url_for('sponsor_register') }}">
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="email" name="email" placeholder="Email" required><br>
+        <input type="text" name="industry" placeholder="Industry"><br>
+        <textarea name="description" placeholder="Description"></textarea><br>
+        <input type="submit" value="Register">
+    </form>
+</body>
+
+</html>

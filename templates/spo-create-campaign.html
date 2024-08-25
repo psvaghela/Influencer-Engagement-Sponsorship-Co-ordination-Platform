@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Campaign</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            margin-top: 0;
+        }
+
+        .campaigns {
+            margin-top: 20px;
+        }
+
+        .campaign-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .campaign-card h3 {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 95%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .buttons form {
+            display: inline;
+        }
+
+        .view-btn,
+        .create-btn,
+        .back-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .view-btn:hover,
+        .create-btn:hover,
+        .back-btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create New Campaign</h1>
+        <form action="{{ url_for('create_campaign') }}" method="POST">
+            <div class="form-group">
+                <label for="campaign_name">Campaign Name:</label>
+                <input type="text" id="campaign_name" name="campaign_name" required>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget:</label>
+                <input type="text" id="budget" name="budget" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" required>
+            </div>
+            <div class="form-group">
+                <label for="visibility">Visibility:</label>
+                <input type="text" id="visibility" name="visibility" required>
+            </div>
+            <div class="form-group">
+                <label for="goals">Goals:</label>
+                <textarea id="goals" name="goals" required></textarea>
+            </div>
+            <button type="submit" class="create-btn">Create Campaign</button>
+        </form>
+    </div>
+</body>
+
+</html>

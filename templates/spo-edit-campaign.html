@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Campaign</title>
+    <style>
+        /* General form styles */
+        form {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Label styling */
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+        }
+
+        /* Input and textarea styling */
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: calc(100% - 16px);
+            /* Full width minus padding */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Button styling */
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Link styling */
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 16px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Edit Campaign</h1>
+    <form action="{{ url_for('edit_campaign', campaign_id=campaign.campaign_id) }}" method="post">
+        <label for="campaign_name">Campaign Name:</label>
+        <input type="text" id="campaign_name" name="campaign_name" value="{{ campaign.campaign_name }}" required><br>
+
+        <label for="budget">Budget:</label>
+        <input type="text" id="budget" name="budget" value="{{ campaign.budget }}" required><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required>{{ campaign.description }}</textarea><br>
+
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" value="{{ campaign.start_date }}" required><br>
+
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" value="{{ campaign.end_date }}" required><br>
+
+        <label for="visibility">Visibility:</label>
+        <input type="text" id="visibility" name="visibility" value="{{ campaign.visibility }}" required><br>
+
+        <label for="goals">Goals:</label>
+        <textarea id="goals" name="goals" required>{{ campaign.goals }}</textarea><br>
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <a href="{{ url_for('view_campaign', campaign_id=campaign.campaign_id) }}">Back to Campaign</a>
+</body>
+
+</html>

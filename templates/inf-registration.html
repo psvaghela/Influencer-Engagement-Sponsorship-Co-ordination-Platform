@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Registration</title>
+    <link rel="stylesheet" type="text/css" href='static/style.css'>
+    
+</head>
+
+<body>
+    <h2>Influencer Registration</h2>
+    <form method="POST" action="{{ url_for('influencer_register') }}">
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="email" name="email" placeholder="Email" required><br>
+        <input type="text" name="platforms" placeholder="Platforms"><br>
+        <input type="text" name="reach" placeholder="Reach"><br>
+        <input type="text" name="category" placeholder="Category"><br>
+        <textarea name="bio" placeholder="Bio"></textarea><br>
+        <input type="submit" value="Register">
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Profile</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .profile-container {
+            
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-container h1 {
+            margin-top: 0;
+        }
+
+        .profile-container p {
+            margin: 10px 0;
+        }
+
+        .profile-container form {
+            margin-top: 20px;
+        }
+
+        .profile-container form div {
+            margin-bottom: 10px;
+        }
+
+        .profile-container form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .profile-container form input,
+        .profile-container form textarea,
+        .profile-container form select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .profile-container form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .profile-container form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-container">
+        <h1>{{ influencer.name }}</h1>
+        <p><strong>Email:</strong> {{ influencer.email }}</p>
+        <p><strong>Platforms:</strong> {{ influencer.platforms }}</p>
+        <p><strong>Reach:</strong> {{ influencer.reach }}</p>
+        <p><strong>Category:</strong> {{ influencer.category }}</p>
+        <p><strong>Bio:</strong> {{ influencer.bio }}</p>
+
+        <h2>Send Ad Request</h2>
+        <form action="{{ url_for('influencer_view', influencer_id=influencer.influencer_id) }}" method="POST">
+            <div>
+                <label for="campaign_id">Select Campaign:</label>
+                <select id="campaign_id" name="campaign_id" required>
+                    <option value="">--Select Campaign--</option>
+                    {% for campaign in campaigns %}
+                    <option value="{{ campaign.campaign_id }}">{{ campaign.campaign_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="ad_name">Ad Name:</label>
+                <input type="text" id="ad_name" name="ad_name" required>
+            </div>
+            <div>
+                <label for="requirements">Requirements:</label>
+                <textarea id="requirements" name="requirements" required></textarea>
+            </div>
+            <div>
+                <label for="payment_amount">Payment Amount:</label>
+                <input type="text" id="payment_amount" name="payment_amount" required>
+            </div>
+            <button type="submit" class="request-btn">Send Request</button>
+        </form>
+    </div>
+</body>
+
+</html>

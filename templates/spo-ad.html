@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Details</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .view-btn,
+        .delete-btn,
+        .back-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            width: 14%;
+        }
+
+        .view-btn:hover,
+        .delete-btn:hover,
+        .back-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Styles for the payment request form */
+        .payment {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            display: flex;
+        }
+
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .button-group {
+            margin-top: 20px;
+        }
+
+        .button-group form {
+            display: inline;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{ ad.ad_name }}</h1>
+        <p><strong>Influencer: </strong>{{ ad.influencer.name }}</p>
+        <p><strong>Campaign: </strong>{{ ad.campaign.campaign_name }}</p>
+        <p><strong>Payment Amount: </strong>{{ ad.payment_amount }}</p>
+        <p><strong>Requirements: </strong>{{ ad.requirements }}</p>
+        <p><strong>Status: </strong>{{ ad.status }}</p>
+        {% if ad.payment_requested %}
+        <p><strong>Requested Payment Amount: </strong>{{ ad.payment_requested }}</p>
+        <div class="payment">
+            <form method="POST" action="{{ url_for('approve_payment', ad_id=ad.ad_id) }}">
+                <button type="submit">Approve Payment</button>
+            </form>
+
+            <form method="POST" action="{{ url_for('reject_payment', ad_id=ad.ad_id) }}">
+                <button type="submit">Reject Payment</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <div class="button-group">
+            <form action="{{ url_for('edit_ad', ad_id=ad.ad_id) }}" method="get">
+                <button type="submit">Edit</button>
+            </form>
+            <form action="{{ url_for('delete_ad', ad_id=ad.ad_id) }}" method="post">
+                <button type="submit"
+                    onclick="return confirm('Are you sure you want to delete this ad request?');">Delete</button>
+            </form>
+        </div>
+
+        <a href="{{ url_for('spo_requests') }}" class="back-btn">Back to Requests</a>
+    </div>
+</body>
+
+</html>
